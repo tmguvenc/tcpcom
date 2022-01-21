@@ -67,7 +67,7 @@ TcpServer::~TcpServer() {
       }
       if (ret > 0) {
         for (const auto &pfd : fd_list) {
-          if (pfd.fd & POLLIN) {
+          if (pfd.revents & POLLIN) {
             if (pfd.fd == listen_fd_) {
               const auto new_client_fd = accept(listen_fd_, nullptr, nullptr);
               if (new_client_fd == -1) {
@@ -79,6 +79,7 @@ TcpServer::~TcpServer() {
               fd_list.push_back({.fd = new_client_fd, .events = POLLIN});
 
               std::cout << "New Client Connected!\n";
+              break;
             } else {
               Message new_mes{};
               new_mes.curr_buf_size =

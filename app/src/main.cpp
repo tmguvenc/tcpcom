@@ -12,7 +12,7 @@ int main() {
     std::cerr << *res << std::endl;
   }
 
-  std::this_thread::sleep_for(std::chrono::milliseconds(10000));
+  std::this_thread::sleep_for(std::chrono::milliseconds(100000));
 
   if (const auto res = server.Start(); res.has_value()) {
     std::cerr << *res << std::endl;
